@@ -7,7 +7,7 @@ function App() {
     const [subReddit, setSubReddit] = useState("webdev");
 
     useEffect(() => {
-        fetch(`https://www.reddit.com/r/webdev.json`).then((res) => {
+        fetch("https://www.reddit.com/r/" + subReddit + ".json").then((res) => {
             if (res.status !== 200) {
                 console.log(`erooror`);
                 return;
@@ -22,14 +22,14 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <input type="text" className="input" value="webdev" />
+                <input type="text" className="input" value={subReddit} onChange={e => setSubReddit(e.target.value)} />
             </header>
             <div className="articles">
-                    
-                    {
-                        (articles !== null) ? articles.map((article, index) => <Article key={index} article={article.data} /> ) : ''
-                    }
-                    
+                {articles !== null
+                    ? articles.map((article, index) => (
+                          <Article key={index} article={article.data} />
+                      ))
+                    : ""}
             </div>
         </div>
     );
