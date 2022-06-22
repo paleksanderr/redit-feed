@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Article from './component/Article';
 
 function App() {
 const [articles, setArticles] = useState([]);
@@ -6,19 +7,18 @@ const [subReddit, setSubReddit] = useState('webdev');
 
 useEffect(() => {
 fetch(`https://www.reddit.com/r/webdev.json`).then(res => {
-  if (res.status !== 200) {
+  if (res.status != 200) {
     console.log(`erooror`);
     return;
   }
   res.json().then(data => {
     if (data != null){
-      console.log(data)
+      setArticles(data.data.children);
     }
   }
-  );
+  )
 
-});}, [subReddit]);
-
+})}, [subReddit]);
   return (
     <div className="App">
       <header className="App-header">
